@@ -2,7 +2,9 @@
 #include "Grid.h"
 #include "Character.h"
 #include "Types.h"
-#include <vector>
+#include <vector> //Was Missing
+
+using namespace std; //Was Missing
 
 class Character
 {
@@ -28,7 +30,7 @@ public:
 
     bool TakeDamage(float amount);
 
-    int getIndex(std::vector<Types::GridBox*> v, int index);
+    int getIndex(vector<Types::GridBox*> v, int index); //Needed std:: before the vector
 
     void Die();
 

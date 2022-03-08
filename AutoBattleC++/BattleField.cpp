@@ -6,6 +6,7 @@
 #include "BattleField.h"
 #include <list>
 #include <string>
+#include <vector>
 
 using namespace std;
 
@@ -14,7 +15,7 @@ BattleField::BattleField() {
     grid = new Grid(5, 5);
     AllPlayers = new list<Character>();
     int currentTurn = 0;
-    int numberOfPossibleTiles = grid->grids.size();
+	int numberOfPossibleTiles =  grid->grids.size(); //Can fix the warning with Auto
     Setup();
 }
 
@@ -32,24 +33,27 @@ void BattleField::GetPlayerChoice()
 
     printf("[1] Paladin, [2] Warrior, [3] Cleric, [4] Archer");
     //store the player choice in a variable
-    std::string choice;
+    std::string PlayerChoiceInput;
 
-    std::getline(std::cin, choice);
+    std::getline(std::cin, PlayerChoiceInput);
     
-    cin >> choice;
-    switch ((choice))
+    cin >> PlayerChoiceInput;
+	
+	int ChoiceNumber = stoi(PlayerChoiceInput);
+
+    switch ((ChoiceNumber))
     {
-    case "1":
-        CreatePlayerCharacter(choice);
+    case 1:
+        CreatePlayerCharacter(ChoiceNumber);
         break;
-    case "2":
-        CreatePlayerCharacter(choice);
+    case 2:
+        CreatePlayerCharacter(ChoiceNumber);
         break;
-    case "3":
-        CreatePlayerCharacter(choice);
+    case 3:
+        CreatePlayerCharacter(ChoiceNumber);
         break;
-    case "4":
-        CreatePlayerCharacter(choice);
+    case 4:
+        CreatePlayerCharacter(ChoiceNumber);
         break;
     default:
         GetPlayerChoice();

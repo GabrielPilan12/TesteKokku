@@ -3,3 +3,7 @@ Installed the Project and Runned on Visual Studio, The Project Did not Build bec
 Such as: 1>d:\teste kokku\autobattlec++\character.h(30): error C2061: syntax error: identifier 'vector'
 
 I'll now try to Fix some of those Bugs
+
+(Character.h) Fixed the Vector bug, missing include and namespace std
+
+Battlefield.cpp -> Fixed the Switch Bug.
