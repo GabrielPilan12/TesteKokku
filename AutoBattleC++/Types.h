@@ -17,6 +17,8 @@ public:
             ocupied = ocupied;
             Index = index;
         }
+
+		GridBox() {}
     };
 
     enum CharacterClass

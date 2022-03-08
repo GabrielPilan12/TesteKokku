@@ -8,6 +8,7 @@
 using namespace std;
 Character::Character(Types::CharacterClass charcaterClass)
 {
+	Types::GridBox currentBox(0, 0, false, 0);
 
 }
 
@@ -39,9 +40,8 @@ void Character::WalkTo(bool CanWalk)
 
 
 
-void Character::StartTurn(Grid* battlefield) {
 
-    {
+void Character::StartTurn(Grid* battlefield) {  
 
         if (CheckCloseTargets(battlefield))
         {
@@ -56,9 +56,9 @@ void Character::StartTurn(Grid* battlefield) {
             
             if (currentBox.xIndex > target->currentBox.xIndex)
             {
-                if(find(battlefield->grids.begin(), battlefield->grids.end(), currentBox.Index - 1) != battlefield->grids.end())
-                
-                {
+				//TODO Verify if this IF really is necessary
+                //if(find(battlefield->grids.begin(), battlefield->grids.end(), currentBox.Index - 1) != battlefield->grids.end())
+                //{
                     currentBox.ocupied = false;
                     battlefield->grids[currentBox.Index] = currentBox;
 
@@ -69,7 +69,7 @@ void Character::StartTurn(Grid* battlefield) {
                     battlefield->drawBattlefield(5, 5);
 
                     return;
-                }
+                //}
             }
             else if (currentBox.xIndex < target->currentBox.xIndex)
             {
@@ -106,12 +106,13 @@ void Character::StartTurn(Grid* battlefield) {
                 return;
             }
         }
-    }
 }
+
+
 
 bool Character::CheckCloseTargets(Grid* battlefield)
 {
-
+	return true;
 }
 
 void Character::Attack(Character* target) 
