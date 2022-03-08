@@ -1,0 +1,5 @@
+Day 1
+Installed the Project and Runned on Visual Studio, The Project Did not Build because of Compilation Errors 
+Such as: 1>d:\teste kokku\autobattlec++\character.h(30): error C2061: syntax error: identifier 'vector'
+
+I'll now try to Fix some of those Bugs
