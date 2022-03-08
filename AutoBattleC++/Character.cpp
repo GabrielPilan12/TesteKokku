@@ -45,7 +45,7 @@ void Character::StartTurn(Grid* battlefield) {
 
         if (CheckCloseTargets(battlefield))
         {
-            Attack(Character::target);
+            //Attack(Character::target);
 
 
             return;

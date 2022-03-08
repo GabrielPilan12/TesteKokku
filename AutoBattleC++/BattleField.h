@@ -4,6 +4,8 @@
 #include <list>
 #include <iostream>
 #include "Grid.h"
+#include <memory>
+
 using namespace std;
 class BattleField
 {

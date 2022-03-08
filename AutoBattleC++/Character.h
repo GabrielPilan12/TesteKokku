@@ -2,6 +2,7 @@
 #include "Grid.h"
 #include "Character.h"
 #include "Types.h"
+#include <memory>
 #include <vector> //Was Missing
 
 using namespace std; //Was Missing
@@ -21,7 +22,8 @@ public:
     int PlayerIndex;
     //public Character Target{ get; set; }
 
-    Character *target;
+    //Character *target;
+	shared_ptr<Character> target;
 
     bool IsDead;
     char Icon;

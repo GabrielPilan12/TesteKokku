@@ -59,12 +59,12 @@ void BattleField::GetPlayerChoice()
 
 void BattleField::CreatePlayerCharacter(int classIndex)
 {
-
-    Types::CharacterClass* characterClass = (Types::CharacterClass*)classIndex;
-    printf("Player Class Choice: {characterClass}\n");
     
-	//TODO - 1 Fix This
-    PlayerCharacter = std::make_shared<Character>(*characterClass);
+	Types::CharacterClass characterClass = static_cast<Types::CharacterClass>(classIndex);
+    printf("Player Class Choice: {characterClass}\n");
+
+    PlayerCharacter = std::make_shared<Character>(characterClass);
+
     
     PlayerCharacter->Health = 100;
     PlayerCharacter->BaseDamage = 20;
@@ -94,9 +94,10 @@ void BattleField::StartGame()
     //populates the character variables and targets
 	//std::make_shared<Character>(EnemyCharacter->target) = PlayerCharacter;
 	//TODO - 2 Fix This
-	//EnemyCharacter->target = &PlayerCharacter;
+	EnemyCharacter->target = PlayerCharacter;
 	//TODO - 3 Fix This
-	//PlayerCharacter->target = *EnemyCharacter;
+	PlayerCharacter->target = EnemyCharacter;
+
     AllPlayers->push_back(*PlayerCharacter);
     AllPlayers->push_back(*EnemyCharacter);
     AlocatePlayers();
