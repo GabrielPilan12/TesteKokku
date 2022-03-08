@@ -21,8 +21,6 @@ BattleField::BattleField() {
 
 void BattleField::Setup()
 {
-  
-   
     GetPlayerChoice();
 }
 
@@ -31,15 +29,16 @@ void BattleField::GetPlayerChoice()
     //asks for the player to choose between for possible classes via console.
     printf("Choose Between One of this Classes:\n");
 
-    printf("[1] Paladin, [2] Warrior, [3] Cleric, [4] Archer");
+    printf("[1] Paladin, [2] Warrior, [3] Cleric, [4] Archer \n");
     //store the player choice in a variable
     std::string PlayerChoiceInput;
 
     std::getline(std::cin, PlayerChoiceInput);
     
-    cin >> PlayerChoiceInput;
+    //cin >> PlayerChoiceInput;
 	
 	int ChoiceNumber = stoi(PlayerChoiceInput);
+	printf("The Number choosen is: %d\n", ChoiceNumber);
 
     switch ((ChoiceNumber))
     {
@@ -67,7 +66,8 @@ void BattleField::CreatePlayerCharacter(int classIndex)
     Types::CharacterClass* characterClass = (Types::CharacterClass*)classIndex;
     printf("Player Class Choice: {characterClass}");
     
-    PlayerCharacter = std::make_shared<Character>(characterClass);
+	//TODO Fix This
+    PlayerCharacter = std::make_shared<Character>(*characterClass);
     
     PlayerCharacter->Health = 100;
     PlayerCharacter->BaseDamage = 20;
@@ -96,8 +96,11 @@ void BattleField::CreateEnemyCharacter()
 void BattleField::StartGame()
 {
     //populates the character variables and targets
-    EnemyCharacter->target = PlayerCharacter;
-    PlayerCharacter->target = EnemyCharacter;
+	//std::make_shared<Character>(EnemyCharacter->target) = PlayerCharacter;
+	//TODO Fix This
+	//EnemyCharacter->target = &PlayerCharacter;
+	//TODO Fix This
+	//PlayerCharacter->target = *EnemyCharacter;
     AllPlayers->push_back(*PlayerCharacter);
     AllPlayers->push_back(*EnemyCharacter);
     AlocatePlayers();
@@ -151,9 +154,7 @@ void BattleField::HandleTurn()
 
 int BattleField::GetRandomInt(int min, int max)
 {
-    
-    int index = GetRandomInt(min, max);
-    return index;
+	return rand() % max + min;
 }
 
 void BattleField::AlocatePlayers()

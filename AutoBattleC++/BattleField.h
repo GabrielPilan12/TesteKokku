@@ -15,9 +15,14 @@ public:
 	Types::GridBox* PlayerCurrentLocation;
 	Types::GridBox* EnemyCurrentLocation;
 	list<Character>* AllPlayers;
-	shared_ptr<Character> PlayerCharacter;
+
+	 shared_ptr<Character> PlayerCharacter;
+	 shared_ptr<Character> EnemyCharacter;
+
 	//Character* PlayerCharacter;
-	shared_ptr<Character> EnemyCharacter;
+	//Character* EnemyCharacter;
+	
+
 	int currentTurn;
 	int numberOfPossibleTiles;
 

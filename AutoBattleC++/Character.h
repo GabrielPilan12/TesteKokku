@@ -21,7 +21,7 @@ public:
     int PlayerIndex;
     //public Character Target{ get; set; }
 
-    Character* target;
+    Character *target;
 
     bool IsDead;
     char Icon;
@@ -30,7 +30,7 @@ public:
 
     bool TakeDamage(float amount);
 
-    int getIndex(vector<Types::GridBox*> v, int index); //Needed std:: before the vector
+    int getIndex(vector<Types::GridBox*> v, int index);
 
     void Die();
 

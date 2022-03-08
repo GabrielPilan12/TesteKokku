@@ -1,7 +1,4 @@
 ﻿  BattleField.cpp
 d:\teste kokku\testekokku\autobattlec++\battlefield.cpp(18): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-d:\teste kokku\testekokku\autobattlec++\battlefield.cpp(67): warning C4312: 'type cast': conversion from 'int' to 'Types::CharacterClass *' of greater size
-d:\teste kokku\testekokku\autobattlec++\battlefield.cpp(99): error C2440: '=': cannot convert from 'std::shared_ptr<Character>' to 'Character *'
-  d:\teste kokku\testekokku\autobattlec++\battlefield.cpp(99): note: No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
-d:\teste kokku\testekokku\autobattlec++\battlefield.cpp(100): error C2440: '=': cannot convert from 'std::shared_ptr<Character>' to 'Character *'
-  d:\teste kokku\testekokku\autobattlec++\battlefield.cpp(100): note: No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
+d:\teste kokku\testekokku\autobattlec++\battlefield.cpp(66): warning C4312: 'type cast': conversion from 'int' to 'Types::CharacterClass *' of greater size
+  AutoBattleC++.vcxproj -> D:\Teste Kokku\TesteKokku\AutoBattleC++\x64\Debug\AutoBattleC++.exe
