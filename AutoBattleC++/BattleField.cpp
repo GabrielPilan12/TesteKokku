@@ -98,8 +98,8 @@ void BattleField::StartGame()
     //populates the character variables and targets
     EnemyCharacter->target = PlayerCharacter;
     PlayerCharacter->target = EnemyCharacter;
-    AllPlayers->push_back(PlayerCharacter);
-    AllPlayers->push_back(EnemyCharacter);
+    AllPlayers->push_back(*PlayerCharacter);
+    AllPlayers->push_back(*EnemyCharacter);
     AlocatePlayers();
     StartTurn();
 
