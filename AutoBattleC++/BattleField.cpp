@@ -78,13 +78,18 @@ void BattleField::CreateEnemyCharacter()
 {
     //randomly choose the enemy class and set up vital variables
     int randomInteger = GetRandomInt(1, 4);
-    Types::CharacterClass enemyClass = (Types::CharacterClass)randomInteger;
-    printf("Enemy Class Choice: {enemyClass}");
-	EnemyCharacter = shared_ptr<Character>(new Character(enemyClass));
-    //EnemyCharacter =  new Character(enemyClass);
+
+    Types::CharacterClass enemyClass = static_cast<Types::CharacterClass>(randomInteger);
+    printf("Enemy Class Choice: {enemyClass}\n");
+
+	EnemyCharacter = std::make_shared<Character>(enemyClass);
+
     EnemyCharacter->Health = 100;
-    PlayerCharacter->BaseDamage = 20;
+	
+
+    PlayerCharacter->BaseDamage = 20;	
     PlayerCharacter->PlayerIndex = 1;
+
     StartGame();
 
 }
@@ -93,15 +98,15 @@ void BattleField::StartGame()
 {
     //populates the character variables and targets
 	//std::make_shared<Character>(EnemyCharacter->target) = PlayerCharacter;
-	//TODO - 2 Fix This
 	EnemyCharacter->target = PlayerCharacter;
-	//TODO - 3 Fix This
 	PlayerCharacter->target = EnemyCharacter;
+
 
     AllPlayers->push_back(*PlayerCharacter);
     AllPlayers->push_back(*EnemyCharacter);
+
     AlocatePlayers();
-    StartTurn();
+    //StartTurn();
 
 }
 
@@ -173,6 +178,8 @@ void BattleField::AlocatePlayerCharacter()
         PlayerCurrentLocation = &*l_front;
         l_front->ocupied = true;
         PlayerCharacter->currentBox = *l_front;
+		//TODO verificar se precisa disso
+		RandomLocation->ocupied = true;
         AlocateEnemyCharacter();
     }
     else
@@ -194,6 +201,8 @@ void BattleField::AlocateEnemyCharacter()
         EnemyCurrentLocation = &*l_front;
         l_front->ocupied = true;
         EnemyCharacter->currentBox = *l_front;
+		//TODO verificar se precisa disso
+		RandomLocation->ocupied = true;
         grid->drawBattlefield(5, 5);
     }
     else

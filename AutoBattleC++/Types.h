@@ -7,7 +7,7 @@ public:
     {
         int xIndex;
         int yIndex;
-        bool ocupied;
+        bool ocupied = false;
         int Index;
 
         GridBox(int x, int y, bool ocupied, int index)
