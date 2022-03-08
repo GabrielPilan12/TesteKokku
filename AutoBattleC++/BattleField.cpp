@@ -84,7 +84,8 @@ void BattleField::CreateEnemyCharacter()
     int randomInteger = GetRandomInt(1, 4);
     Types::CharacterClass enemyClass = (Types::CharacterClass)randomInteger;
     printf("Enemy Class Choice: {enemyClass}");
-    EnemyCharacter = new Character(enemyClass);
+	EnemyCharacter = shared_ptr<Character>(new Character(enemyClass));
+    //EnemyCharacter =  new Character(enemyClass);
     EnemyCharacter->Health = 100;
     PlayerCharacter->BaseDamage = 20;
     PlayerCharacter->PlayerIndex = 1;
