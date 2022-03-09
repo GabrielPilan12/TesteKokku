@@ -41,7 +41,8 @@ void Character::WalkTo(bool CanWalk)
 
 
 
-void Character::StartTurn(Grid* battlefield) {  
+void Character::StartTurn(Grid* battlefield) { 
+
 
         if (CheckCloseTargets(battlefield))
         {
@@ -53,9 +54,13 @@ void Character::StartTurn(Grid* battlefield) {
         else
         {   // if there is no target close enough, calculates in wich direction this character should move to be closer to a possible target
             
-            
+			//TODO Continuar daqui arrumando o Current box que ta errado
+			printf("Character Current Box: Line: %d Column: %d \n", currentBox.xIndex, currentBox.yIndex);
+
+
             if (currentBox.xIndex > target->currentBox.xIndex)
             {
+				
 				//TODO Verify if this IF really is necessary
                 //if(find(battlefield->grids.begin(), battlefield->grids.end(), currentBox.Index - 1) != battlefield->grids.end())
                 //{
@@ -84,10 +89,17 @@ void Character::StartTurn(Grid* battlefield) {
 
             if (currentBox.yIndex > target->currentBox.yIndex)
             {
-                battlefield->drawBattlefield(5, 5);
+				battlefield->drawBattlefield(5, 5);
+
+                
                 currentBox.ocupied = false;
                 battlefield->grids[currentBox.Index] = currentBox;
+
+
+				printf("Current Box Index: %d", currentBox.Index);
                 currentBox = battlefield->grids[(currentBox.Index - battlefield->xLenght)];
+				printf("Oi\n");
+
                 currentBox.ocupied = true;
                 battlefield->grids[currentBox.Index] = currentBox;
                 //Console.WriteLine($"PlayerB {PlayerIndex} walked up\n");
@@ -105,6 +117,7 @@ void Character::StartTurn(Grid* battlefield) {
 
                 return;
             }
+
         }
 }
 
@@ -112,7 +125,8 @@ void Character::StartTurn(Grid* battlefield) {
 
 bool Character::CheckCloseTargets(Grid* battlefield)
 {
-	return true;
+	//TODO Implement Checking Close Targets
+	return false;
 }
 
 void Character::Attack(Character* target) 

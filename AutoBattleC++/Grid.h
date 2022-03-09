@@ -12,6 +12,9 @@ public:
 
     std::vector<Types::GridBox> grids;
 
+	Types::GridBox* PlayerCurrentLocation;
+	Types::GridBox* EnemyCurrentLocation;
+
     int xLenght;
     int yLength;
     
