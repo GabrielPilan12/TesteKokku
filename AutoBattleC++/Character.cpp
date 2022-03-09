@@ -37,18 +37,22 @@ bool Character::CheckCloseTargets(Grid* battlefield)
 	Indice 10 -> Linha = 2 e Coluna = 0
 
 	Indice = (linha * battlefield->xLenght) + coluna
-	0 1 2 3 4
-	5 6 7 8 9
-	10
+	0	1	2	3	4
+	5	6	7	8	9
+	10	11	12	13	14
+	15	16	17	18	19
+	20	21	22	23	24
 	*/
 
-	//TODO -> Diagonals Can Also be Considered Here
+	//TODO opt-> Diagonals Can Also be Considered Here
 
 	//verify if not at the top, then if it not, verify up
+	printf("Current Character Index: %d\n", ((currentBox.xIndex) * battlefield->xLenght) + currentBox.yIndex);
 	if (battlefield->grids[((currentBox.xIndex) * battlefield->xLenght) + currentBox.yIndex].xIndex != 0)
 	{
 		if (battlefield->grids[((currentBox.xIndex - 1) * battlefield->xLenght) + currentBox.yIndex].ocupied == true)
 		{
+			printf("Found a Close Target at the Top \n");
 			return true;
 		}
 	}
@@ -59,6 +63,7 @@ bool Character::CheckCloseTargets(Grid* battlefield)
 	{
 		if (battlefield->grids[((currentBox.xIndex + 1) * battlefield->xLenght) + currentBox.yIndex].ocupied == true)
 		{
+			printf("Found a Close Target at the Bottom \n");
 			return true;
 		}
 	}
@@ -68,6 +73,7 @@ bool Character::CheckCloseTargets(Grid* battlefield)
 	{
 		if (battlefield->grids[(currentBox.xIndex * battlefield->xLenght) + (currentBox.yIndex - 1)].ocupied == true)
 		{
+			printf("Found a Close Target to the Left \n");
 			return true;
 		}
 	}
@@ -76,6 +82,7 @@ bool Character::CheckCloseTargets(Grid* battlefield)
 	{
 		if (battlefield->grids[(currentBox.xIndex * battlefield->xLenght) + (currentBox.yIndex + 1)].ocupied == true)
 		{
+			printf("Found a Close Target to the Right \n");
 			return true;
 		}
 	}
@@ -83,7 +90,7 @@ bool Character::CheckCloseTargets(Grid* battlefield)
 	return false;
 }
 
-//TODO Remove is Player Turn for PlayerIndex == 0
+
 void Character::StartTurn(Grid* battlefield, bool IsPlayerTurn) 
 {
 	
@@ -105,7 +112,11 @@ void Character::StartTurn(Grid* battlefield, bool IsPlayerTurn)
 
 	if (CheckCloseTargets(battlefield))
 	{
+
 		Attack(&*target);
+
+		//AttackTryPushAway(&*target , battlefield);
+		
 		return;
 	}
 	else
@@ -239,8 +250,59 @@ void Character::Attack(Character* target)
 	
 	target->TakeDamage(BaseDamage * DamageMultiplier);
 
-	//TODO Implement a Chance to Push the Character Away
 	
+}
+
+void Character::AttackTryPushAway(Character* target , Grid* battlefield)
+{
+	//TODO Make Push Random
+
+	//TODO Continuar Aqui -> Descobrir o Porque o Index nao ta Atualizando
+
+	//verify if not at the top 
+	if (battlefield->grids[((target->currentBox.xIndex) * battlefield->xLenght) + target->currentBox.yIndex].xIndex != 0)
+	{
+		printf("\nTarget is not at the Top \n");
+		//If above zone is free Push Character Up
+		if (battlefield->grids[((target->currentBox.xIndex - 1) * battlefield->xLenght) + target->currentBox.yIndex].ocupied == false)
+		{
+			printf("The zone Above the Target is Free! \n");
+			battlefield->grids[(target->currentBox.xIndex * battlefield->xLenght) + target->currentBox.yIndex].ocupied = false;
+			battlefield->grids[((target->currentBox.xIndex - 1) * battlefield->xLenght) + target->currentBox.yIndex].ocupied = true;
+
+			if (PlayerIndex == 1)
+			{
+
+				battlefield->PlayerCurrentLocation->xIndex = battlefield->PlayerCurrentLocation->xIndex - 1;
+				target->currentBox = *battlefield->PlayerCurrentLocation;
+
+				target->currentBox.xIndex = battlefield->PlayerCurrentLocation->xIndex;
+				target->currentBox.yIndex = battlefield->PlayerCurrentLocation->yIndex;
+			}
+			else
+			{
+				battlefield->EnemyCurrentLocation->xIndex = battlefield->EnemyCurrentLocation->xIndex - 1;
+				target->currentBox = *battlefield->EnemyCurrentLocation;
+
+				target->currentBox.xIndex = battlefield->EnemyCurrentLocation->xIndex;
+				target->currentBox.yIndex = battlefield->EnemyCurrentLocation->yIndex;
+
+			}
+
+			//target->currentBox.ocupied = true;
+			//target->target->currentBox = currentBox;
+
+			printf("\nPushed Up! \n");
+			printf("Current Target Index: %d\n", ((target->currentBox.xIndex) * battlefield->xLenght) + target->currentBox.yIndex);
+			printf("Current Target Current Box: Line: %d Column: %d \n\n", target->currentBox.xIndex, target->currentBox.yIndex);
+
+		}
+	}	
+
+	battlefield->drawBattlefield(5, 5);
+
+	printf("Character Was Pushed! \n\n");
+
 }
 
 void Character::TakeDamage(float amount) 

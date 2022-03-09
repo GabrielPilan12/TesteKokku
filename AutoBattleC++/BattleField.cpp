@@ -159,9 +159,14 @@ void BattleField::StartTurn()
 
 	bool bIsPlayerTurn = true;
 
-	printf("Start of the Turn %d\n", currentTurn);
+	printf("\n----------------------------------------------------------------------------------------\n");
+	printf("Start of the Turn %d\n\n", currentTurn);
 	printf("Player Health: %.0f \n", PlayerCharacter->Health);
+	printf("Player Character Current Box: Line: %d Column: %d \n\n", PlayerCharacter->currentBox.xIndex, PlayerCharacter->currentBox.yIndex);
+
 	printf("Enemy Health: %.0f \n", EnemyCharacter->Health);
+	printf("Enemy Character Current Box: Line: %d Column: %d \n\n", EnemyCharacter->currentBox.xIndex, EnemyCharacter->currentBox.yIndex);
+
 
     for (it = AllPlayers->begin(); it != AllPlayers->end(); ++it) {
 		
@@ -169,6 +174,15 @@ void BattleField::StartTurn()
 		bIsPlayerTurn = false;
     }
 
+
+	printf("Player Health: %.0f \n", PlayerCharacter->Health);
+	printf("Player Character Current Box: Line: %d Column: %d \n\n", PlayerCharacter->currentBox.xIndex, PlayerCharacter->currentBox.yIndex);
+
+	printf("Enemy Health: %.0f \n", EnemyCharacter->Health);
+	printf("Enemy Character Current Box: Line: %d Column: %d \n\n", EnemyCharacter->currentBox.xIndex, EnemyCharacter->currentBox.yIndex);
+
+	printf("\nEnd of the Turn %d\n", currentTurn);
+	printf("\n----------------------------------------------------------------------------------------\n");
     HandleTurn();
 }
 
@@ -176,18 +190,18 @@ void BattleField::HandleTurn()
 {
     if (PlayerCharacter->Health <= 0)
     {
-		printf("\nGame Over!\n");
-		printf("The Player Lost!\n");
+		printf("\n--------------------------------Game Over----------------------------------\n");
+		printf("-----------------------------The Player Lost !-----------------------------\n");
     }
     else if (EnemyCharacter->Health <= 0)
     {
-		printf("\nGame Over!\n");
-		printf("The Player Wins!\n");
+		printf("\n--------------------------------Game Over----------------------------------\n");
+		printf("-----------------------------The Player Wins !-----------------------------\n");
     }
     else
     {
         printf("\n");
-        printf("Press Enter to start the next turn...\n");
+        printf("-----------------------------Press Enter to start the next turn-----------------------------\n");
         printf("\n");
 
 		string PlayerInput;
@@ -211,6 +225,7 @@ void BattleField::AlocatePlayers()
 void BattleField::AlocatePlayerCharacter()
 {
     int random = GetRandomInt(0, ((grid->xLenght * grid->yLength) - 1));
+	//random = 12;
 	
     auto l_front = grid->grids.begin();
     advance(l_front, random);
@@ -233,6 +248,7 @@ void BattleField::AlocatePlayerCharacter()
 void BattleField::AlocateEnemyCharacter()
 {
 	int random = GetRandomInt(0, ((grid->xLenght * grid->yLength) - 1));
+	//random = 13;
 
     auto l_front = grid->grids.begin();
     advance(l_front, random);

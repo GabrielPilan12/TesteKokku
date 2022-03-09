@@ -15,7 +15,7 @@ public:
     ~Character();
 
     
-	string name; //TODO Missing name Implementation on the Code
+	string name; //TODO opt Missing name Implementation on the Code
     float Health;
     float BaseDamage;
     float DamageMultiplier;
@@ -36,6 +36,8 @@ public:
     bool CheckCloseTargets(Grid* battlefield);
 
     void Attack(Character* target);
+
+	void AttackTryPushAway(Character* target , Grid* battlefield);
 
 
 };

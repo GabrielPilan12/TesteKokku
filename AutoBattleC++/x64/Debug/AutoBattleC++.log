@@ -1,3 +1,2 @@
-﻿  AutoBattleC++.cpp
-d:\teste kokku\testekokku\autobattlec++\autobattlec++.cpp(11): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+﻿  BattleField.cpp
   AutoBattleC++.vcxproj -> D:\Teste Kokku\TesteKokku\AutoBattleC++\x64\Debug\AutoBattleC++.exe
