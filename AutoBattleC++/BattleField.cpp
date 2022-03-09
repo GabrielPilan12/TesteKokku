@@ -10,18 +10,19 @@
 
 using namespace std;
 
-BattleField::BattleField() {
-    
+BattleField::BattleField() 
+{ 
     grid = new Grid(5, 5);
     AllPlayers = new list<Character>();
     int currentTurn = 0;
-	int numberOfPossibleTiles =  grid->grids.size(); //Can fix the warning with Auto
     Setup();
 }
 
 void BattleField::Setup()
 {
     GetPlayerChoice();
+	CreateEnemyCharacter();
+	StartGame();
 }
 
 void BattleField::GetPlayerChoice()
@@ -65,13 +66,10 @@ void BattleField::CreatePlayerCharacter(int classIndex)
 
     PlayerCharacter = make_shared<Character>(characterClass);
 
-    
     PlayerCharacter->Health = 100;
     PlayerCharacter->BaseDamage = 40;
 	PlayerCharacter->DamageMultiplier = 1;
     PlayerCharacter->PlayerIndex = 0;
-
-    CreateEnemyCharacter();
 
 }
 
@@ -89,8 +87,6 @@ void BattleField::CreateEnemyCharacter()
 	EnemyCharacter->BaseDamage = 20;
 	EnemyCharacter->DamageMultiplier = 1;
 	EnemyCharacter->PlayerIndex = 1;
-
-    StartGame();
 
 }
 
@@ -111,7 +107,8 @@ void BattleField::StartGame()
 
 }
 
-void BattleField::StartTurn() {
+void BattleField::StartTurn() 
+{
 
 	currentTurn++;
 

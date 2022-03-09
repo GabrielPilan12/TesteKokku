@@ -22,7 +22,6 @@ public:
 	 shared_ptr<Character> EnemyCharacter;
 
 	int currentTurn;
-	int numberOfPossibleTiles;
 
 	void Setup();
 
