@@ -36,6 +36,21 @@ void BattleField::GetPlayerChoice()
 
     getline(cin, PlayerChoiceInput);
 	
+	//TODO Verify if First Input is valid
+	/*
+	bool bIsANumber = false;
+
+	if (PlayerChoiceInput[0] == '1'	|| PlayerChoiceInput[0] == '2'	|| PlayerChoiceInput[0] == '3'	|| PlayerChoiceInput[0] == '4')
+	{
+		bIsANumber = true;
+	}
+
+	if (!bIsANumber || PlayerChoiceInput.length() != 1)
+	{
+		GetPlayerChoice();
+	}
+
+	*/
 	int ChoiceNumber = stoi(PlayerChoiceInput);
 
     switch ((ChoiceNumber))
@@ -62,8 +77,22 @@ void BattleField::CreatePlayerCharacter(int classIndex)
 {
     
 	Types::CharacterClass characterClass = static_cast<Types::CharacterClass>(classIndex);
-    printf("Player Class Choice: {characterClass}\n");
 
+	switch ((classIndex))
+	{
+	case 1:
+		printf("Player Class Choice: Paladin\n");
+		break;
+	case 2:
+		printf("Player Class Choice: Warrior\n");
+		break;
+	case 3:
+		printf("Player Class Choice: Cleric\n");
+		break;
+	case 4:
+		printf("Player Class Choice: Archer\n");
+		break;
+	}
     PlayerCharacter = make_shared<Character>(characterClass);
 
     PlayerCharacter->Health = 100;
@@ -79,7 +108,22 @@ void BattleField::CreateEnemyCharacter()
     int randomInteger = GetRandomInt(1, 4);
 
     Types::CharacterClass enemyClass = static_cast<Types::CharacterClass>(randomInteger);
-    printf("Enemy Class Choice: {enemyClass}\n");
+
+	switch ((randomInteger))
+	{
+	case 1:
+		printf("Enemy Class Choice: Paladin\n");
+		break;
+	case 2:
+		printf("Enemy Class Choice: Warrior\n");
+		break;
+	case 3:
+		printf("Enemy Class Choice: Cleric\n");
+		break;
+	case 4:
+		printf("Enemy Class Choice: Archer\n");
+		break;
+	}
 
 	EnemyCharacter = make_shared<Character>(enemyClass);
 
@@ -144,7 +188,7 @@ void BattleField::HandleTurn()
     else
     {
         printf("\n");
-        printf("Click on any key to start the next turn...\n");
+        printf("Press Enter to start the next turn...\n");
         printf("\n");
 
 		string PlayerInput;
@@ -168,7 +212,8 @@ void BattleField::AlocatePlayers()
 void BattleField::AlocatePlayerCharacter()
 {
 	//TODO Fix Random Location for player position on Battlefield
-    int random = 0;
+    int random = GetRandomInt(0, ((grid->xLenght * grid->yLength) - 1));
+	
     auto l_front = grid->grids.begin();
     advance(l_front, random);
     Types::GridBox* RandomLocation = &*l_front;
@@ -191,7 +236,8 @@ void BattleField::AlocatePlayerCharacter()
 void BattleField::AlocateEnemyCharacter()
 {
 	//TODO Fix Random Location for Enemy position on Battlefield
-    int random = 1;
+	int random = GetRandomInt(0, ((grid->xLenght * grid->yLength) - 1));
+
     auto l_front = grid->grids.begin();
     advance(l_front, random);
     Types::GridBox* RandomLocation = &*l_front;

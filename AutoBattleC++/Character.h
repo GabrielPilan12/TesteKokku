@@ -15,6 +15,7 @@ public:
     ~Character();
 
     
+	string name; //TODO Missing name Implementation on the Code
     float Health;
     float BaseDamage;
     float DamageMultiplier;
@@ -23,13 +24,10 @@ public:
 	shared_ptr<Character> target;
 
     bool IsDead = false;
-    char Icon;
 
     Types::GridBox currentBox;
 
-    bool TakeDamage(float amount);
-
-    int getIndex(vector<Types::GridBox*> v, int index);
+    void TakeDamage(float amount);
 
     void Die();
 

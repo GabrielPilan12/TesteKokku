@@ -2,6 +2,7 @@
 //
 #include "BattleField.h"
 #include <iostream>
+#include <time.h>
 
 int main()
 {

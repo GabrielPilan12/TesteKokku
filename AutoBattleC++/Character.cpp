@@ -84,9 +84,8 @@ bool Character::CheckCloseTargets(Grid* battlefield)
 }
 
 //TODO Remove is Player Turn for PlayerIndex == 0
-void Character::StartTurn(Grid* battlefield, bool IsPlayerTurn) {
-
-	//TODO Continuar Aqui, Verificar porque o Health Nao ta Atualizando sendo que no Target da Certo
+void Character::StartTurn(Grid* battlefield, bool IsPlayerTurn) 
+{
 	
 	if (target->target->Health <= 0)
 	{
@@ -112,8 +111,10 @@ void Character::StartTurn(Grid* battlefield, bool IsPlayerTurn) {
 	else
 	{   // if there is no target close enough, calculates in wich direction this character should move to be closer to a possible target
 
+		/*
 		printf("\n\nCharacter Current Box before moving: Line: %d Column: %d \n", currentBox.xIndex, currentBox.yIndex);
 		printf("Target Current Box  Line: %d Column: %d \n", target->currentBox.xIndex, target->currentBox.yIndex);
+		*/
 
 		//Makes the Current Character Position Free because it will move
 		battlefield->grids[(currentBox.xIndex * battlefield->xLenght) + currentBox.yIndex].ocupied = false;
@@ -237,11 +238,12 @@ void Character::Attack(Character* target)
 	}
 	
 	target->TakeDamage(BaseDamage * DamageMultiplier);
+
+	//TODO Implement a Chance to Push the Character Away
 	
 }
 
-//TODO -> Switch from bool to void
-bool Character::TakeDamage(float amount) 
+void Character::TakeDamage(float amount) 
 {
 	Health = Health - amount;
 
@@ -249,8 +251,6 @@ bool Character::TakeDamage(float amount)
 	{
 		Die();		
 	}
-
-	return true;
 }
 
 void Character::Die() 
@@ -265,8 +265,6 @@ void Character::Die()
 	{
 		printf("\nEnemy Died!\n");
 	}
-	// TODO >> kill
-	//TODO >> end the game?
 }
 
 
