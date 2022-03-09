@@ -15,7 +15,6 @@ BattleField::BattleField()
     grid = new Grid(5, 5);
     AllPlayers = new list<Character>();
     int currentTurn = 0;
-    Setup();
 }
 
 void BattleField::Setup()
@@ -211,7 +210,6 @@ void BattleField::AlocatePlayers()
 
 void BattleField::AlocatePlayerCharacter()
 {
-	//TODO Fix Random Location for player position on Battlefield
     int random = GetRandomInt(0, ((grid->xLenght * grid->yLength) - 1));
 	
     auto l_front = grid->grids.begin();
@@ -220,7 +218,6 @@ void BattleField::AlocatePlayerCharacter()
 
     if (!RandomLocation->ocupied)
     {
-        //Types::GridBox* PlayerCurrentLocation = RandomLocation;
         PlayerCurrentLocation = &*l_front;
         l_front->ocupied = true;
         PlayerCharacter->currentBox = *l_front;
@@ -235,7 +232,6 @@ void BattleField::AlocatePlayerCharacter()
 
 void BattleField::AlocateEnemyCharacter()
 {
-	//TODO Fix Random Location for Enemy position on Battlefield
 	int random = GetRandomInt(0, ((grid->xLenght * grid->yLength) - 1));
 
     auto l_front = grid->grids.begin();

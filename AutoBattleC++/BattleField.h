@@ -23,8 +23,6 @@ public:
 
 	int currentTurn;
 
-	int RandomNumber;
-
 	void Setup();
 
 	void GetPlayerChoice();
