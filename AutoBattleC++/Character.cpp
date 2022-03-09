@@ -116,12 +116,12 @@ void Character::StartTurn(Grid* battlefield , bool IsPlayerTurn) {
 				printf("\nCharacter MUST GO LEFT\n");
 				if (IsPlayerTurn)
 				{
-					battlefield->PlayerCurrentLocation = &battlefield->grids[currentBox.Index - 1];
+					battlefield->PlayerCurrentLocation->yIndex = battlefield->PlayerCurrentLocation->yIndex - 1;
 					currentBox = *battlefield->PlayerCurrentLocation;
 				}
 				else
 				{
-					battlefield->EnemyCurrentLocation = &battlefield->grids[currentBox.Index - 1];
+					battlefield->EnemyCurrentLocation->yIndex = battlefield->EnemyCurrentLocation->yIndex - 1;
 					currentBox = *battlefield->EnemyCurrentLocation;
 				}
 
@@ -143,12 +143,12 @@ void Character::StartTurn(Grid* battlefield , bool IsPlayerTurn) {
 				//TODO Continuar aqui -> Fazer isso Funcionar agora para o Up e Down
 				if (IsPlayerTurn)
 				{
-					battlefield->PlayerCurrentLocation = &battlefield->grids[currentBox.Index + 1];
+					battlefield->PlayerCurrentLocation->yIndex = battlefield->PlayerCurrentLocation->yIndex + 1;
 					currentBox = *battlefield->PlayerCurrentLocation;
 				}
 				else
 				{
-					battlefield->EnemyCurrentLocation = &battlefield->grids[currentBox.Index + 1];
+					battlefield->EnemyCurrentLocation->yIndex = battlefield->EnemyCurrentLocation->yIndex + 1;
 					currentBox = *battlefield->EnemyCurrentLocation;
 				}
 				
