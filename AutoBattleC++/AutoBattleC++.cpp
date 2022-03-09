@@ -6,6 +6,8 @@
 int main()
 {
     BattleField* battleField = new(BattleField);
+	delete battleField;
+	battleField = nullptr;
 }
 
 
