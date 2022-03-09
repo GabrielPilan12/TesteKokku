@@ -21,13 +21,8 @@ public:
 	 shared_ptr<Character> PlayerCharacter;
 	 shared_ptr<Character> EnemyCharacter;
 
-	//Character* PlayerCharacter;
-	//Character* EnemyCharacter;
-	
-
 	int currentTurn;
 	int numberOfPossibleTiles;
-
 
 	void Setup();
 

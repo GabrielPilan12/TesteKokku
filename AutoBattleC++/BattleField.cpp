@@ -67,7 +67,8 @@ void BattleField::CreatePlayerCharacter(int classIndex)
 
     
     PlayerCharacter->Health = 100;
-    PlayerCharacter->BaseDamage = 20;
+    PlayerCharacter->BaseDamage = 40;
+	PlayerCharacter->DamageMultiplier = 1;
     PlayerCharacter->PlayerIndex = 0;
 
     CreateEnemyCharacter();
@@ -85,7 +86,8 @@ void BattleField::CreateEnemyCharacter()
 	EnemyCharacter = make_shared<Character>(enemyClass);
 
     EnemyCharacter->Health = 100;
-	EnemyCharacter->BaseDamage = 10;
+	EnemyCharacter->BaseDamage = 20;
+	EnemyCharacter->DamageMultiplier = 1;
 	EnemyCharacter->PlayerIndex = 1;
 
     StartGame();
@@ -117,8 +119,13 @@ void BattleField::StartTurn() {
 
 	bool bIsPlayerTurn = true;
 
+	printf("Start of the Turn %d\n", currentTurn);
+	printf("Player Health: %.0f \n", PlayerCharacter->Health);
+	printf("Enemy Health: %.0f \n", EnemyCharacter->Health);
+
     for (it = AllPlayers->begin(); it != AllPlayers->end(); ++it) {
-		it->StartTurn(grid , bIsPlayerTurn);
+		
+		it->StartTurn(grid, bIsPlayerTurn);
 		bIsPlayerTurn = false;
     }
 
@@ -127,20 +134,15 @@ void BattleField::StartTurn() {
 
 void BattleField::HandleTurn()
 {
-    if (PlayerCharacter->Health == 0)
+    if (PlayerCharacter->Health <= 0)
     {
-		printf("\nThe Player Died\n");
-        return;
+		printf("\nGame Over!\n");
+		printf("The Player Lost!\n");
     }
-    else if (EnemyCharacter->Health == 0)
+    else if (EnemyCharacter->Health <= 0)
     {
-        printf("\n");
-
-		printf("The Enemy Died");
-
-        printf("\n");
-		// endgame?
-        return;
+		printf("\nGame Over!\n");
+		printf("The Player Wins!\n");
     }
     else
     {

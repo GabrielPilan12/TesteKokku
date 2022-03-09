@@ -22,7 +22,7 @@ public:
 
 	shared_ptr<Character> target;
 
-    bool IsDead;
+    bool IsDead = false;
     char Icon;
 
     Types::GridBox currentBox;
@@ -32,8 +32,6 @@ public:
     int getIndex(vector<Types::GridBox*> v, int index);
 
     void Die();
-
-    void WalkTo(bool CanWalk);
 
     void StartTurn(Grid* battlefield , bool IsPlayerTurn);
 
