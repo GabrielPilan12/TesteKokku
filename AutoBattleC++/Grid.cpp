@@ -40,6 +40,8 @@ void Grid::drawBattlefield(int Lines, int Columns)
 			currentgrid->xIndex = i;
 			currentgrid->yIndex = j;
 
+			bool bOccupiedByPlayer = false;
+
 			if (currentgrid->xIndex == PlayerCurrentLocation->xIndex && currentgrid->yIndex == PlayerCurrentLocation->yIndex)
 			{
 				/*Debug
@@ -47,6 +49,7 @@ void Grid::drawBattlefield(int Lines, int Columns)
 				printf("Player Character Current Box: Line: %d Column: %d \n", currentgrid->xIndex, currentgrid->yIndex);
 				*/
 				currentgrid->ocupied = true;
+				bOccupiedByPlayer = true;
 
 			}
 			else if (currentgrid->xIndex == EnemyCurrentLocation->xIndex && currentgrid->yIndex == EnemyCurrentLocation->yIndex)
@@ -61,9 +64,15 @@ void Grid::drawBattlefield(int Lines, int Columns)
 
             if (currentgrid->ocupied)
             {
-				//TODO Verificar se pelo index do current grid a gente printa diferente o inimigo do player, tipo X e P
-                //if()
-                printf("[X]\t");
+				if (bOccupiedByPlayer)
+				{
+					printf("[P]\t");
+				}
+				else
+				{
+					printf("[X]\t");
+				}
+                
             }
             else
             {

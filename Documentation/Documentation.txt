@@ -9,3 +9,6 @@ I'll now try to Fix some of those Bugs
 Battlefield.cpp -> Fixed the Switch Bug.
 
 Noticed that Many Parts of the Code there is a use of using namespace std and then using std:: , this needs to be organized to keep the same pattern to every code
+
+Day 2
+Major Fixes to Make the Basic Code work, some parts of the game are working , some systems still needs to be developed.
