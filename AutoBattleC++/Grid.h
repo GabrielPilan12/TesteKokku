@@ -2,6 +2,7 @@
 #include <Vector>
 #include "Types.h"
 
+using namespace std;
 class Grid
 {
 
@@ -10,7 +11,7 @@ public:
     Grid(int Lines, int Columns);
     ~Grid();
 
-    std::vector<Types::GridBox> grids;
+    vector<Types::GridBox> grids;
 
 	Types::GridBox* PlayerCurrentLocation;
 	Types::GridBox* EnemyCurrentLocation;

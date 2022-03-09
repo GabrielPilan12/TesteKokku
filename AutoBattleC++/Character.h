@@ -18,11 +18,8 @@ public:
     float Health;
     float BaseDamage;
     float DamageMultiplier;
-    //public GridBox currentBox;
     int PlayerIndex;
-    //public Character Target{ get; set; }
 
-    //Character *target;
 	shared_ptr<Character> target;
 
     bool IsDead;

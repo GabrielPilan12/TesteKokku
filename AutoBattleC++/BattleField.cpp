@@ -31,9 +31,9 @@ void BattleField::GetPlayerChoice()
 
     printf("[1] Paladin, [2] Warrior, [3] Cleric, [4] Archer \n");
     //store the player choice in a variable
-    std::string PlayerChoiceInput;
+    string PlayerChoiceInput;
 
-    std::getline(std::cin, PlayerChoiceInput);
+    getline(cin, PlayerChoiceInput);
 	
 	int ChoiceNumber = stoi(PlayerChoiceInput);
 
@@ -63,7 +63,7 @@ void BattleField::CreatePlayerCharacter(int classIndex)
 	Types::CharacterClass characterClass = static_cast<Types::CharacterClass>(classIndex);
     printf("Player Class Choice: {characterClass}\n");
 
-    PlayerCharacter = std::make_shared<Character>(characterClass);
+    PlayerCharacter = make_shared<Character>(characterClass);
 
     
     PlayerCharacter->Health = 100;
@@ -82,7 +82,7 @@ void BattleField::CreateEnemyCharacter()
     Types::CharacterClass enemyClass = static_cast<Types::CharacterClass>(randomInteger);
     printf("Enemy Class Choice: {enemyClass}\n");
 
-	EnemyCharacter = std::make_shared<Character>(enemyClass);
+	EnemyCharacter = make_shared<Character>(enemyClass);
 
     EnemyCharacter->Health = 100;
 	
@@ -97,7 +97,6 @@ void BattleField::CreateEnemyCharacter()
 void BattleField::StartGame()
 {
     //populates the character variables and targets
-	//std::make_shared<Character>(EnemyCharacter->target) = PlayerCharacter;
 	EnemyCharacter->target = PlayerCharacter;
 	PlayerCharacter->target = EnemyCharacter;
 
@@ -119,7 +118,7 @@ void BattleField::StartTurn() {
     {
         //AllPlayers.Sort();  
     }
-    std::list<Character>::iterator it;
+    list<Character>::iterator it;
 
 	bool bIsPlayerTurn = true;
 
@@ -154,8 +153,8 @@ void BattleField::HandleTurn()
         printf("Click on any key to start the next turn...\n");
         printf("\n");
 
-		std::string PlayerInput;
-		std::getline(std::cin, PlayerInput);
+		string PlayerInput;
+		getline(cin, PlayerInput);
 
         StartTurn();
     }
@@ -175,7 +174,7 @@ void BattleField::AlocatePlayers()
 void BattleField::AlocatePlayerCharacter()
 {
 	//TODO Fix Random Location for player position on Battlefield
-    int random = 5;
+    int random = 0;
     auto l_front = grid->grids.begin();
     advance(l_front, random);
     Types::GridBox* RandomLocation = &*l_front;
@@ -199,7 +198,7 @@ void BattleField::AlocatePlayerCharacter()
 void BattleField::AlocateEnemyCharacter()
 {
 	//TODO Fix Random Location for Enemy position on Battlefield
-    int random = 4;
+    int random = 24;
     auto l_front = grid->grids.begin();
     advance(l_front, random);
     Types::GridBox* RandomLocation = &*l_front;

@@ -29,6 +29,7 @@ bool Character::TakeDamage(float amount)
 
 void Character::Die() 
 {
+	printf("\nDie!\n");
 	// TODO >> kill
 	//TODO >> end the game?
 }
@@ -51,8 +52,7 @@ void Character::StartTurn(Grid* battlefield , bool IsPlayerTurn) {
         }
         else
         {   // if there is no target close enough, calculates in wich direction this character should move to be closer to a possible target
-			
-			
+					
 			printf("\n\nCharacter Current Box before moving: Line: %d Column: %d \n",currentBox.xIndex, currentBox.yIndex);
 			printf("Target Current Box  Line: %d Column: %d \n", target->currentBox.xIndex, target->currentBox.yIndex);
 			
@@ -65,12 +65,8 @@ void Character::StartTurn(Grid* battlefield , bool IsPlayerTurn) {
 				printf("\nCharacter MUST GO UP\n");
 				battlefield->grids[((currentBox.xIndex - 1) * battlefield->xLenght) + currentBox.yIndex].ocupied = true;
 
-				//TODO Verify if this IF really is necessary
-                //if(find(battlefield->grids.begin(), battlefield->grids.end(), currentBox.Index - 1) != battlefield->grids.end())
-                //{
 				if (IsPlayerTurn)
 				{
-					//TODO verificar se realmente remove o espaço antes ocupado
 
 					battlefield->PlayerCurrentLocation->xIndex = battlefield->PlayerCurrentLocation->xIndex - 1;
 					currentBox = *battlefield->PlayerCurrentLocation;
@@ -85,13 +81,8 @@ void Character::StartTurn(Grid* battlefield , bool IsPlayerTurn) {
 				target->target->currentBox = currentBox;
 
 				battlefield->drawBattlefield(5, 5);
-				/*
-				printf("Character Moved Up\n");
-				printf("Character Current Box After moving: Line: %d Column: %d \n", currentBox.xIndex, currentBox.yIndex);
-				printf("Target Current Box  Line: %d Column: %d \n", target->currentBox.xIndex, target->currentBox.yIndex);
-				*/
+
                 return;
-                //}
             }
             else if(currentBox.xIndex < target->currentBox.xIndex)
             {
@@ -115,11 +106,6 @@ void Character::StartTurn(Grid* battlefield , bool IsPlayerTurn) {
 
 				battlefield->drawBattlefield(5, 5);
 
-				/*
-				printf("Character Moved Down\n");
-				printf("Character Current Box After moving: Line: %d Column: %d \n", currentBox.xIndex, currentBox.yIndex);
-				printf("Target Current Box  Line: %d Column: %d \n", target->currentBox.xIndex, target->currentBox.yIndex);
-				*/
 				return;
             }
             
@@ -146,11 +132,6 @@ void Character::StartTurn(Grid* battlefield , bool IsPlayerTurn) {
 
 				battlefield->drawBattlefield(5, 5);
 
-				/*
-				printf("Character Moved to the Left\n");
-				printf("Character Current Box After moving: Line: %d Column: %d \n", currentBox.xIndex, currentBox.yIndex);
-				printf("Target Current Box  Line: %d Column: %d \n", target->currentBox.xIndex, target->currentBox.yIndex);
-				*/
 				return;
 
             }
@@ -176,11 +157,7 @@ void Character::StartTurn(Grid* battlefield , bool IsPlayerTurn) {
 				target->target->currentBox = currentBox;
 
 				battlefield->drawBattlefield(5, 5);
-				/*
-				printf("Character Moved to the Right\n");
-				printf("Character Current Box After moving: Line: %d Column: %d \n", currentBox.xIndex, currentBox.yIndex);
-				printf("Target Current Box  Line: %d Column: %d \n", target->currentBox.xIndex, target->currentBox.yIndex);
-				*/
+
                 return;
             }
 
@@ -188,8 +165,6 @@ void Character::StartTurn(Grid* battlefield , bool IsPlayerTurn) {
 
         }
 }
-
-
 
 bool Character::CheckCloseTargets(Grid* battlefield)
 {
