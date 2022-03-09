@@ -121,11 +121,12 @@ void BattleField::StartTurn() {
     }
     std::list<Character>::iterator it;
 
+	bool bIsPlayerTurn = true;
 
     for (it = AllPlayers->begin(); it != AllPlayers->end(); ++it) {
-		it->StartTurn(grid);
+		it->StartTurn(grid , bIsPlayerTurn);
+		bIsPlayerTurn = false;
     }
-	printf("TESTE 2 \n");
 
     currentTurn++;
     HandleTurn();
@@ -133,7 +134,6 @@ void BattleField::StartTurn() {
 
 void BattleField::HandleTurn()
 {
-	printf("Handle Turn\n");
     if (PlayerCharacter->Health == 0)
     {
         return;
@@ -175,7 +175,7 @@ void BattleField::AlocatePlayers()
 void BattleField::AlocatePlayerCharacter()
 {
 	//TODO Fix Random Location for player position on Battlefield
-    int random = 3;
+    int random = 11;
     auto l_front = grid->grids.begin();
     advance(l_front, random);
     Types::GridBox* RandomLocation = &*l_front;
@@ -199,7 +199,7 @@ void BattleField::AlocatePlayerCharacter()
 void BattleField::AlocateEnemyCharacter()
 {
 	//TODO Fix Random Location for Enemy position on Battlefield
-    int random = 1;
+    int random = 13;
     auto l_front = grid->grids.begin();
     advance(l_front, random);
     Types::GridBox* RandomLocation = &*l_front;

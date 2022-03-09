@@ -38,7 +38,7 @@ public:
 
     void WalkTo(bool CanWalk);
 
-    void StartTurn(Grid* battlefield);
+    void StartTurn(Grid* battlefield , bool IsPlayerTurn);
 
     bool CheckCloseTargets(Grid* battlefield);
 

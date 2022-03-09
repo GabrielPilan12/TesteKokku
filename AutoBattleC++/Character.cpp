@@ -41,8 +41,7 @@ void Character::WalkTo(bool CanWalk)
 
 
 
-void Character::StartTurn(Grid* battlefield) { 
-
+void Character::StartTurn(Grid* battlefield , bool IsPlayerTurn) { 
 
         if (CheckCloseTargets(battlefield))
         {
@@ -53,14 +52,12 @@ void Character::StartTurn(Grid* battlefield) {
         }
         else
         {   // if there is no target close enough, calculates in wich direction this character should move to be closer to a possible target
-            
-			//TODO Continuar daqui arrumando o Current box que ta errado
-			printf("Character Current Box: Line: %d Column: %d \n", currentBox.xIndex, currentBox.yIndex);
-
 
             if (currentBox.xIndex > target->currentBox.xIndex)
             {
-				
+				//CHARACTER GO UP
+				printf("\nCharacter MUST GO UP\n");
+
 				//TODO Verify if this IF really is necessary
                 //if(find(battlefield->grids.begin(), battlefield->grids.end(), currentBox.Index - 1) != battlefield->grids.end())
                 //{
@@ -78,6 +75,9 @@ void Character::StartTurn(Grid* battlefield) {
             }
             else if (currentBox.xIndex < target->currentBox.xIndex)
             {
+				//CHARACTER GO DOWN
+				printf("\nCharacter MUST GO DOWN\n");
+
                 currentBox.ocupied = false;
                 battlefield->grids[currentBox.Index] = currentBox;
                 currentBox = (battlefield->grids[currentBox.Index + 1]);
@@ -89,31 +89,45 @@ void Character::StartTurn(Grid* battlefield) {
 
             if (currentBox.yIndex > target->currentBox.yIndex)
             {
+				//CHARACTER GO LEFT
+				printf("\nCharacter MUST GO LEFT\n");
+
+				if (IsPlayerTurn)
+				{
+					battlefield->PlayerCurrentLocation = &battlefield->grids[currentBox.Index - 1];
+				}
+				else
+				{
+					battlefield->EnemyCurrentLocation = &battlefield->grids[currentBox.Index - 1];
+				}
+
 				battlefield->drawBattlefield(5, 5);
 
-                
-                currentBox.ocupied = false;
-                battlefield->grids[currentBox.Index] = currentBox;
+				printf("Character Moved to the Left\n");
+
+				return;
 
 
-				printf("Current Box Index: %d", currentBox.Index);
-                currentBox = battlefield->grids[(currentBox.Index - battlefield->xLenght)];
-				printf("Oi\n");
-
-                currentBox.ocupied = true;
-                battlefield->grids[currentBox.Index] = currentBox;
-                //Console.WriteLine($"PlayerB {PlayerIndex} walked up\n");
                 return;
             }
             else if (currentBox.yIndex < target->currentBox.yIndex)
             {
-                currentBox.ocupied = true;
-                battlefield->grids[currentBox.Index] = currentBox;
-                currentBox = battlefield->grids[currentBox.Index + battlefield->xLenght];
-                currentBox.ocupied = false;
-                battlefield->grids[currentBox.Index] = currentBox;
-                //Console.WriteLine($"Player {PlayerIndex} walked down\n");
-                battlefield->drawBattlefield(5, 5);
+				//CHARACTER GO RIGHT
+				printf("\nCharacter MUST GO RIGHT\n");
+
+				//TODO Continuar aqui -> Fazer isso Funcionar agora para o Up e Down
+				if (IsPlayerTurn)
+				{
+					battlefield->PlayerCurrentLocation = &battlefield->grids[currentBox.Index + 1];
+				}
+				else
+				{
+					battlefield->EnemyCurrentLocation = &battlefield->grids[currentBox.Index + 1];
+				}
+				
+				battlefield->drawBattlefield(5, 5);
+
+				printf("Character Moved to the Right\n");
 
                 return;
             }
@@ -125,7 +139,7 @@ void Character::StartTurn(Grid* battlefield) {
 
 bool Character::CheckCloseTargets(Grid* battlefield)
 {
-	//TODO Implement Checking Close Targets
+	//TODO Implement Checking Close Targets, verify left and right, then up and down
 	return false;
 }
 
