@@ -85,10 +85,8 @@ void BattleField::CreateEnemyCharacter()
 	EnemyCharacter = make_shared<Character>(enemyClass);
 
     EnemyCharacter->Health = 100;
-	
-
-    PlayerCharacter->BaseDamage = 20;	
-    PlayerCharacter->PlayerIndex = 1;
+	EnemyCharacter->BaseDamage = 10;
+	EnemyCharacter->PlayerIndex = 1;
 
     StartGame();
 
@@ -100,13 +98,12 @@ void BattleField::StartGame()
 	EnemyCharacter->target = PlayerCharacter;
 	PlayerCharacter->target = EnemyCharacter;
 
-
-
-
     AlocatePlayers();
 
 	AllPlayers->push_back(*PlayerCharacter);
 	AllPlayers->push_back(*EnemyCharacter);
+
+	grid->drawBattlefield(5, 5);
 
     StartTurn();
 
@@ -114,10 +111,8 @@ void BattleField::StartGame()
 
 void BattleField::StartTurn() {
 
-    if (currentTurn == 0)
-    {
-        //AllPlayers.Sort();  
-    }
+	currentTurn++;
+
     list<Character>::iterator it;
 
 	bool bIsPlayerTurn = true;
@@ -127,7 +122,6 @@ void BattleField::StartTurn() {
 		bIsPlayerTurn = false;
     }
 
-    currentTurn++;
     HandleTurn();
 }
 
@@ -135,16 +129,17 @@ void BattleField::HandleTurn()
 {
     if (PlayerCharacter->Health == 0)
     {
+		printf("\nThe Player Died\n");
         return;
     }
     else if (EnemyCharacter->Health == 0)
     {
         printf("\n");
 
-        // endgame?
+		printf("The Enemy Died");
 
         printf("\n");
-
+		// endgame?
         return;
     }
     else
@@ -168,7 +163,7 @@ int BattleField::GetRandomInt(int min, int max)
 void BattleField::AlocatePlayers()
 {
     AlocatePlayerCharacter();
-
+	AlocateEnemyCharacter();
 }
 
 void BattleField::AlocatePlayerCharacter()
@@ -187,7 +182,6 @@ void BattleField::AlocatePlayerCharacter()
         PlayerCharacter->currentBox = *l_front;
 		printf("Player Character Current Box: Line: %d Column: %d \n", PlayerCharacter->currentBox.xIndex, PlayerCharacter->currentBox.yIndex);
 		grid->PlayerCurrentLocation = PlayerCurrentLocation;
-		AlocateEnemyCharacter();
     }
     else
     {
@@ -198,7 +192,7 @@ void BattleField::AlocatePlayerCharacter()
 void BattleField::AlocateEnemyCharacter()
 {
 	//TODO Fix Random Location for Enemy position on Battlefield
-    int random = 24;
+    int random = 1;
     auto l_front = grid->grids.begin();
     advance(l_front, random);
     Types::GridBox* RandomLocation = &*l_front;
@@ -210,7 +204,6 @@ void BattleField::AlocateEnemyCharacter()
         EnemyCharacter->currentBox = *l_front;
 		printf("Enemy Character Current Box: Line: %d Column: %d \n", EnemyCharacter->currentBox.xIndex, EnemyCharacter->currentBox.yIndex);
 		grid->EnemyCurrentLocation = EnemyCurrentLocation;
-		grid->drawBattlefield(5, 5);
     }
     else
     {
