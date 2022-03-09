@@ -47,11 +47,13 @@ void Character::StartTurn(Grid* battlefield , bool IsPlayerTurn) {
         {
             //Attack(Character::target);
 
-
             return;
         }
         else
         {   // if there is no target close enough, calculates in wich direction this character should move to be closer to a possible target
+
+			printf("\n\nCharacter Current Box before moving: Line: %d Column: %d \n",currentBox.xIndex, currentBox.yIndex);
+			printf("Target Current Box  Line: %d Column: %d \n", target->currentBox.xIndex, target->currentBox.yIndex);
 
             if (currentBox.xIndex > target->currentBox.xIndex)
             {
@@ -61,56 +63,79 @@ void Character::StartTurn(Grid* battlefield , bool IsPlayerTurn) {
 				//TODO Verify if this IF really is necessary
                 //if(find(battlefield->grids.begin(), battlefield->grids.end(), currentBox.Index - 1) != battlefield->grids.end())
                 //{
-                    currentBox.ocupied = false;
-                    battlefield->grids[currentBox.Index] = currentBox;
+				if (IsPlayerTurn)
+				{
+					battlefield->PlayerCurrentLocation->xIndex = battlefield->PlayerCurrentLocation->xIndex - 1;
+					currentBox = *battlefield->PlayerCurrentLocation;
+				}
+				else
+				{
+					battlefield->EnemyCurrentLocation->xIndex = battlefield->EnemyCurrentLocation->xIndex - 1;
+					currentBox = *battlefield->EnemyCurrentLocation;
+				}
 
-                    currentBox = (battlefield->grids[currentBox.Index - 1]);
-                    currentBox.ocupied = true;
-                    battlefield->grids[currentBox.Index] = currentBox;
-                    //Console.WriteLine($"Player {PlayerIndex} walked left\n");
-                    battlefield->drawBattlefield(5, 5);
+				target->target->currentBox = currentBox;
 
-                    return;
+				battlefield->drawBattlefield(5, 5);
+
+				printf("Character Moved Up\n");
+				printf("Character Current Box After moving: Line: %d Column: %d \n", currentBox.xIndex, currentBox.yIndex);
+				printf("Target Current Box  Line: %d Column: %d \n", target->currentBox.xIndex, target->currentBox.yIndex);
+                return;
                 //}
             }
-            else if (currentBox.xIndex < target->currentBox.xIndex)
+            else if(currentBox.xIndex < target->currentBox.xIndex)
             {
 				//CHARACTER GO DOWN
 				printf("\nCharacter MUST GO DOWN\n");
 
-                currentBox.ocupied = false;
-                battlefield->grids[currentBox.Index] = currentBox;
-                currentBox = (battlefield->grids[currentBox.Index + 1]);
-                return;
-                battlefield->grids[currentBox.Index] = currentBox;
-                //Console.WriteLine($"Player {PlayerIndex} walked right\n");
-                battlefield->drawBattlefield(5, 5);
-            }
+				if (IsPlayerTurn)
+				{
+					battlefield->PlayerCurrentLocation->xIndex = battlefield->PlayerCurrentLocation->xIndex + 1;
+					currentBox = *battlefield->PlayerCurrentLocation;
+				}
+				else
+				{
+					battlefield->EnemyCurrentLocation->xIndex = battlefield->EnemyCurrentLocation->xIndex + 1;
+					currentBox = *battlefield->EnemyCurrentLocation;
+				}
 
-            if (currentBox.yIndex > target->currentBox.yIndex)
+				target->target->currentBox = currentBox;
+
+				battlefield->drawBattlefield(5, 5);
+
+				printf("Character Moved Down\n");
+				printf("Character Current Box After moving: Line: %d Column: %d \n", currentBox.xIndex, currentBox.yIndex);
+				printf("Target Current Box  Line: %d Column: %d \n", target->currentBox.xIndex, target->currentBox.yIndex);
+				return;
+            }
+            
+			if (currentBox.yIndex > target->currentBox.yIndex)
             {
 				//CHARACTER GO LEFT
 				printf("\nCharacter MUST GO LEFT\n");
-
 				if (IsPlayerTurn)
 				{
 					battlefield->PlayerCurrentLocation = &battlefield->grids[currentBox.Index - 1];
+					currentBox = *battlefield->PlayerCurrentLocation;
 				}
 				else
 				{
 					battlefield->EnemyCurrentLocation = &battlefield->grids[currentBox.Index - 1];
+					currentBox = *battlefield->EnemyCurrentLocation;
 				}
+
+				target->target->currentBox = currentBox;
 
 				battlefield->drawBattlefield(5, 5);
 
 				printf("Character Moved to the Left\n");
-
+				printf("Character Current Box After moving: Line: %d Column: %d \n", currentBox.xIndex, currentBox.yIndex);
+				printf("Target Current Box  Line: %d Column: %d \n", target->currentBox.xIndex, target->currentBox.yIndex);
 				return;
 
-
-                return;
             }
-            else if (currentBox.yIndex < target->currentBox.yIndex)
+            else if(currentBox.yIndex < target->currentBox.yIndex)
             {
 				//CHARACTER GO RIGHT
 				printf("\nCharacter MUST GO RIGHT\n");
@@ -119,18 +144,25 @@ void Character::StartTurn(Grid* battlefield , bool IsPlayerTurn) {
 				if (IsPlayerTurn)
 				{
 					battlefield->PlayerCurrentLocation = &battlefield->grids[currentBox.Index + 1];
+					currentBox = *battlefield->PlayerCurrentLocation;
 				}
 				else
 				{
 					battlefield->EnemyCurrentLocation = &battlefield->grids[currentBox.Index + 1];
+					currentBox = *battlefield->EnemyCurrentLocation;
 				}
 				
+				target->target->currentBox = currentBox;
+
 				battlefield->drawBattlefield(5, 5);
 
 				printf("Character Moved to the Right\n");
-
+				printf("Character Current Box After moving: Line: %d Column: %d \n", currentBox.xIndex, currentBox.yIndex);
+				printf("Target Current Box  Line: %d Column: %d \n", target->currentBox.xIndex, target->currentBox.yIndex);
                 return;
             }
+
+
 
         }
 }

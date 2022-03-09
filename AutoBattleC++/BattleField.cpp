@@ -175,7 +175,7 @@ void BattleField::AlocatePlayers()
 void BattleField::AlocatePlayerCharacter()
 {
 	//TODO Fix Random Location for player position on Battlefield
-    int random = 11;
+    int random = 0;
     auto l_front = grid->grids.begin();
     advance(l_front, random);
     Types::GridBox* RandomLocation = &*l_front;
@@ -199,7 +199,7 @@ void BattleField::AlocatePlayerCharacter()
 void BattleField::AlocateEnemyCharacter()
 {
 	//TODO Fix Random Location for Enemy position on Battlefield
-    int random = 13;
+    int random = 24;
     auto l_front = grid->grids.begin();
     advance(l_front, random);
     Types::GridBox* RandomLocation = &*l_front;
