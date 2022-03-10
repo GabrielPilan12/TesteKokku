@@ -202,7 +202,7 @@ void BattleField::HandleTurn()
     else
     {
         printf("\n");
-        printf("-----------------------------Press Enter to start the next turn-----------------------------\n");
+        printf("---------------------------Press Enter to start the next turn---------------------------");
         printf("\n");
 
 		string PlayerInput;
@@ -226,7 +226,7 @@ void BattleField::AlocatePlayers()
 void BattleField::AlocatePlayerCharacter()
 {
     int random = GetRandomInt(0, ((grid->xLenght * grid->yLength) - 1));
-	//random = 12;
+	//random = 20;
 	
     auto l_front = grid->grids.begin();
     advance(l_front, random);
@@ -249,7 +249,7 @@ void BattleField::AlocatePlayerCharacter()
 void BattleField::AlocateEnemyCharacter()
 {
 	int random = GetRandomInt(0, ((grid->xLenght * grid->yLength) - 1));
-	//random = 13;
+	//random = 14;
 
     auto l_front = grid->grids.begin();
     advance(l_front, random);

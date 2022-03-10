@@ -45,7 +45,8 @@ bool Character::CheckCloseTargets(Grid* battlefield)
 	*/
 
 	//verify if not at the top, then if it not, verify up
-	printf("Current Character Index: %d\n", ((currentBox.xIndex) * battlefield->xLenght) + currentBox.yIndex);
+	//printf("Current Character Index: %d\n", ((currentBox.xIndex) * battlefield->xLenght) + currentBox.yIndex);
+
 	if (battlefield->grids[((currentBox.xIndex) * battlefield->xLenght) + currentBox.yIndex].xIndex != 0)
 	{
 		if (battlefield->grids[((currentBox.xIndex - 1) * battlefield->xLenght) + currentBox.yIndex].ocupied == true)
@@ -76,7 +77,8 @@ bool Character::CheckCloseTargets(Grid* battlefield)
 		}
 	}
 	//Verify if not at the rightmost, then if not, Verify to the Right
-	if (battlefield->grids[((currentBox.xIndex) * battlefield->xLenght) + currentBox.yIndex].xIndex != (battlefield->yLength - 1))
+
+	if (battlefield->grids[((currentBox.xIndex) * battlefield->xLenght) + currentBox.yIndex].yIndex != (battlefield->yLength - 1))
 	{
 		if (battlefield->grids[(currentBox.xIndex * battlefield->xLenght) + (currentBox.yIndex + 1)].ocupied == true)
 		{
