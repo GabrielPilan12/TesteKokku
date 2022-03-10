@@ -44,9 +44,12 @@ bool Character::CheckCloseTargets(Grid* battlefield)
 	20	21	22	23	24
 	*/
 
-	//verify if not at the top, then if it not, verify up
-	//printf("Current Character Index: %d\n", ((currentBox.xIndex) * battlefield->xLenght) + currentBox.yIndex);
+	
 
+	currentBox.xIndex = target->target->currentBox.xIndex;
+	currentBox.yIndex = target->target->currentBox.yIndex;
+
+	//verify if not at the top, then if it not, verify up
 	if (battlefield->grids[((currentBox.xIndex) * battlefield->xLenght) + currentBox.yIndex].xIndex != 0)
 	{
 		if (battlefield->grids[((currentBox.xIndex - 1) * battlefield->xLenght) + currentBox.yIndex].ocupied == true)
@@ -76,6 +79,7 @@ bool Character::CheckCloseTargets(Grid* battlefield)
 			return true;
 		}
 	}
+
 	//Verify if not at the rightmost, then if not, Verify to the Right
 
 	if (battlefield->grids[((currentBox.xIndex) * battlefield->xLenght) + currentBox.yIndex].yIndex != (battlefield->yLength - 1))
@@ -121,11 +125,6 @@ void Character::StartTurn(Grid* battlefield, bool IsPlayerTurn)
 	}
 	else
 	{   // if there is no target close enough, calculates in wich direction this character should move to be closer to a possible target
-
-		/*
-		printf("\n\nCharacter Current Box before moving: Line: %d Column: %d \n", currentBox.xIndex, currentBox.yIndex);
-		printf("Target Current Box  Line: %d Column: %d \n", target->currentBox.xIndex, target->currentBox.yIndex);
-		*/
 
 		//Makes the Current Character Position Free because it will move
 		battlefield->grids[(currentBox.xIndex * battlefield->xLenght) + currentBox.yIndex].ocupied = false;
@@ -256,9 +255,8 @@ void Character::Attack(Character* target)
 void Character::AttackTryPushAway(Character* target , Grid* battlefield)
 {
 	//TODO Make Push Random
-
-	//TODO Continuar Aqui -> Descobrir o Porque o Index nao ta Atualizando
-
+	
+	
 	//verify if not at the top 
 	if (battlefield->grids[((target->currentBox.xIndex) * battlefield->xLenght) + target->currentBox.yIndex].xIndex != 0)
 	{
@@ -288,20 +286,54 @@ void Character::AttackTryPushAway(Character* target , Grid* battlefield)
 				target->currentBox.yIndex = battlefield->EnemyCurrentLocation->yIndex;
 
 			}
-
-			//target->currentBox.ocupied = true;
-			//target->target->currentBox = currentBox;
-
-			printf("\nPushed Up! \n");
-			printf("Current Target Index: %d\n", ((target->currentBox.xIndex) * battlefield->xLenght) + target->currentBox.yIndex);
-			printf("Current Target Current Box: Line: %d Column: %d \n\n", target->currentBox.xIndex, target->currentBox.yIndex);
-
+			printf("\nCharacter Was Pushed Up! \n");
 		}
-	}	
+	}
+	//Verify if not at right most
+	else if (battlefield->grids[((target->currentBox.xIndex) * battlefield->xLenght) + target->currentBox.yIndex].yIndex != (battlefield->yLength - 1))
+	{
+		if (battlefield->grids[((target->currentBox.xIndex) * battlefield->xLenght) + (target->currentBox.yIndex + 1)].ocupied == false)
+		{
+			printf("The zone to the right of the Target is Free! \n");
+			battlefield->grids[(target->currentBox.xIndex * battlefield->xLenght) + target->currentBox.yIndex].ocupied = false;
+			battlefield->grids[((target->currentBox.xIndex) * battlefield->xLenght) + (target->currentBox.yIndex + 1)].ocupied = true;
+			if (PlayerIndex == 1)
+			{
 
+				battlefield->PlayerCurrentLocation->yIndex = battlefield->PlayerCurrentLocation->yIndex + 1;
+				target->currentBox = *battlefield->PlayerCurrentLocation;
+
+				target->currentBox.xIndex = battlefield->PlayerCurrentLocation->xIndex;
+				target->currentBox.yIndex = battlefield->PlayerCurrentLocation->yIndex;
+			}
+			else
+			{
+				battlefield->EnemyCurrentLocation->yIndex = battlefield->EnemyCurrentLocation->yIndex + 1;
+				target->currentBox = *battlefield->EnemyCurrentLocation;
+
+				target->currentBox.xIndex = battlefield->EnemyCurrentLocation->xIndex;
+				target->currentBox.yIndex = battlefield->EnemyCurrentLocation->yIndex;
+
+			}
+
+			printf("\nCharacter Was Pushed Right! \n");
+		}
+	}
+	else 
+	{
+		printf("Cant Push \n");
+		return;
+	}
+
+	
+	/*
+	battlefield->grids[target->currentBox.xIndex * battlefield->xLenght + target->currentBox.yIndex].ocupied = false;
+	target->currentBox.xIndex = 0;
+	target->currentBox.yIndex = 0;
+	target->currentBox.Index = target->currentBox.xIndex * battlefield->xLenght + target->currentBox.yIndex;
+	battlefield->EnemyCurrentLocation = &battlefield->grids[target->currentBox.Index];
+	*/
 	battlefield->drawBattlefield(5, 5);
-
-	printf("Character Was Pushed! \n\n");
 
 }
 

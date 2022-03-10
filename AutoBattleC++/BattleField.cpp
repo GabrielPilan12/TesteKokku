@@ -226,7 +226,7 @@ void BattleField::AlocatePlayers()
 void BattleField::AlocatePlayerCharacter()
 {
     int random = GetRandomInt(0, ((grid->xLenght * grid->yLength) - 1));
-	//random = 20;
+	//random = 8;
 	
     auto l_front = grid->grids.begin();
     advance(l_front, random);
@@ -249,7 +249,7 @@ void BattleField::AlocatePlayerCharacter()
 void BattleField::AlocateEnemyCharacter()
 {
 	int random = GetRandomInt(0, ((grid->xLenght * grid->yLength) - 1));
-	//random = 14;
+	//random = 3;
 
     auto l_front = grid->grids.begin();
     advance(l_front, random);
