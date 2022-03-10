@@ -26,30 +26,31 @@ void BattleField::Setup()
 
 void BattleField::GetPlayerChoice()
 {
-    //asks for the player to choose between for possible classes via console.
-    printf("Choose Between One of this Classes:\n");
-
-    printf("[1] Paladin, [2] Warrior, [3] Cleric, [4] Archer \n");
-    //store the player choice in a variable
-    string PlayerChoiceInput;
-
-    getline(cin, PlayerChoiceInput);
+	string PlayerChoiceInput;
+	while (true) //Loop for the Player to choose a valid Class
+	{
 	
-	//TODO Verify if First Input is valid
-	/*
-	bool bIsANumber = false;
+		//asks for the player to choose between for possible classes via console.
+		printf("Choose Between One of this Classes:\n");
+		printf("[1] Paladin, [2] Warrior, [3] Cleric, [4] Archer \n");
 
-	if (PlayerChoiceInput[0] == '1'	|| PlayerChoiceInput[0] == '2'	|| PlayerChoiceInput[0] == '3'	|| PlayerChoiceInput[0] == '4')
-	{
-		bIsANumber = true;
+
+		getline(cin, PlayerChoiceInput);
+
+		/*Verifies if the Input is valid*/
+		if (PlayerChoiceInput.length() == 1)
+		{
+			if (PlayerChoiceInput[0] == '1' 
+				|| PlayerChoiceInput[0] == '2' 
+				|| PlayerChoiceInput[0] == '3' 
+				|| PlayerChoiceInput[0] == '4')
+			{
+				break;
+			}
+		}
+
 	}
 
-	if (!bIsANumber || PlayerChoiceInput.length() != 1)
-	{
-		GetPlayerChoice();
-	}
-
-	*/
 	int ChoiceNumber = stoi(PlayerChoiceInput);
 
     switch ((ChoiceNumber))
@@ -66,9 +67,8 @@ void BattleField::GetPlayerChoice()
     case 4:
         CreatePlayerCharacter(ChoiceNumber);
         break;
-    default:
-        GetPlayerChoice();
-        break;
+	default:
+		break;
     }
 }
 
@@ -127,7 +127,7 @@ void BattleField::CreateEnemyCharacter()
 	EnemyCharacter = make_shared<Character>(enemyClass);
 
     EnemyCharacter->Health = 100;
-	EnemyCharacter->BaseDamage = 20;
+	EnemyCharacter->BaseDamage = 40;
 	EnemyCharacter->DamageMultiplier = 1;
 	EnemyCharacter->PlayerIndex = 1;
 
@@ -139,6 +139,7 @@ void BattleField::StartGame()
 	EnemyCharacter->target = PlayerCharacter;
 	PlayerCharacter->target = EnemyCharacter;
 
+	//Place Players on Battlefield
     AlocatePlayers();
 
 	AllPlayers->push_back(*PlayerCharacter);

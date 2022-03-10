@@ -44,8 +44,6 @@ bool Character::CheckCloseTargets(Grid* battlefield)
 	20	21	22	23	24
 	*/
 
-	//TODO opt-> Diagonals Can Also be Considered Here
-
 	//verify if not at the top, then if it not, verify up
 	printf("Current Character Index: %d\n", ((currentBox.xIndex) * battlefield->xLenght) + currentBox.yIndex);
 	if (battlefield->grids[((currentBox.xIndex) * battlefield->xLenght) + currentBox.yIndex].xIndex != 0)

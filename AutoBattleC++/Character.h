@@ -14,8 +14,6 @@ public:
     Character(Types::CharacterClass charcaterClass);
     ~Character();
 
-    
-	string name; //TODO opt Missing name Implementation on the Code
     float Health;
     float BaseDamage;
     float DamageMultiplier;

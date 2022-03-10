@@ -12,3 +12,23 @@ Noticed that Many Parts of the Code there is a use of using namespace std and th
 
 Day 2
 Major Fixes to Make the Basic Code work, some parts of the game are working , some systems still needs to be developed.
+
+Day 3
+Game now works as it should, during the 3 days of development, many aspects regarding malpractices and code conventions were changed
+
+Some of the Noticed things that changed:
+
+many codes were using namespace but then we would also se std:: , all of the std:: was removed and replaced by using namespace std at the start of the code
+Some comment lines was misleading, for example the direction of the player movement on the Character Start Turn, that was changed so now it gets clear of what is actually being done
+
+Some classes had variables that had no use or even functions that didn't seem to make sense, they have been altered or removed if not necessary, 
+for example a function that returned a bool but it didn't need to return anything, so it was changed to void
+
+The code had many functions that called other functions that weren't related, for instance, the CreatePlayerCharacter was also calling the CreateEnemyCharacter,
+This was changed and made in such a way that Each function does exactly what it says and nothings else so the CreatePlayerCharacter only Creates a Player and don't do anything else
+
+The Grid letter to represent the Player was changed to P so the player can visualize more easily the characters
+
+
+Notes:
+The Game Rules of Checking Near Targets, does not consider Diagonals, altough it could be done if necessary by adding the 4 extra slots verifiers
