@@ -31,4 +31,17 @@ The Grid letter to represent the Player was changed to P so the player can visua
 
 
 Notes:
+The Extra Feature Added was to have the random chance of Character to be pushed away when it gets attacked
+I was born on May 12, 1999
+
+Diagonals are not Considered in the Check Close Attack Targets
+
+The Player will start first by default, but by changing the  the Variable -> bool bIsPlayerTurn = false on the Battlefield the Enemy will go First
+
 The Game Rules of Checking Near Targets, does not consider Diagonals, altough it could be done if necessary by adding the 4 extra slots verifiers
+
+During the Test Period, I had to work on all of the 3 days, so I didn't had as much time as I wanted to, 
+but I believe I delivered the best result I could considering the amount of time I had to work with the test
+
+The Battlefield grid works at any size, as long as all the Places that call the Draw Battlefield Function have the same value (If I had extra time I could make always use one variable so this could be easily changed)
+

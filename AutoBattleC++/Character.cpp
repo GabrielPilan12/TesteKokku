@@ -19,37 +19,10 @@ Character::~Character()
 
 bool Character::CheckCloseTargets(Grid* battlefield)
 {
-
-	/*
-	battlefield->xLenght = 5
-	battlefield->yLength = 5
-
-	Indice 0 -> Linha = 0 e Coluna = 0
-	Indice 1 -> Linha = 0 e Coluna = 1
-	Indice 2 -> Linha = 0 e Coluna = 2
-	Indice 3 -> Linha = 0 e Coluna = 3
-	Indice 4 -> Linha = 0 e Coluna = 4
-	Indice 5 -> Linha = 1 e Coluna = 0
-	Indice 6 -> Linha = 1 e Coluna = 1
-	Indice 7 -> Linha = 1 e Coluna = 2
-	Indice 8 -> Linha = 1 e Coluna = 3
-	Indice 9 -> Linha = 1 e Coluna = 4
-	Indice 10 -> Linha = 2 e Coluna = 0
-
-	Indice = (linha * battlefield->xLenght) + coluna
-	0	1	2	3	4
-	5	6	7	8	9
-	10	11	12	13	14
-	15	16	17	18	19
-	20	21	22	23	24
-	*/
-
-	
-
 	currentBox.xIndex = target->target->currentBox.xIndex;
 	currentBox.yIndex = target->target->currentBox.yIndex;
 
-	//verify if not at the top, then if it not, verify up
+	//verify if not at the top, then if it not, then verify up
 	if (battlefield->grids[((currentBox.xIndex) * battlefield->xLenght) + currentBox.yIndex].xIndex != 0)
 	{
 		if (battlefield->grids[((currentBox.xIndex - 1) * battlefield->xLenght) + currentBox.yIndex].ocupied == true)
@@ -60,7 +33,7 @@ bool Character::CheckCloseTargets(Grid* battlefield)
 	}
 
 
-	//Verify if not at the bottom, then if not, Verify Down
+	//Verify if not at the bottom, then if not, then Verify Down
 	if (battlefield->grids[((currentBox.xIndex) * battlefield->xLenght) + currentBox.yIndex].xIndex != (battlefield->xLenght - 1))
 	{
 		if (battlefield->grids[((currentBox.xIndex + 1) * battlefield->xLenght) + currentBox.yIndex].ocupied == true)
@@ -70,7 +43,7 @@ bool Character::CheckCloseTargets(Grid* battlefield)
 		}
 	}
 
-	//Verify if not at the Leftmost, then if not, Verify to the Left
+	//Verify if not at the Leftmost, then if not, then Verify to the Left
 	if (battlefield->grids[((currentBox.xIndex) * battlefield->xLenght) + currentBox.yIndex].yIndex != 0)
 	{
 		if (battlefield->grids[(currentBox.xIndex * battlefield->xLenght) + (currentBox.yIndex - 1)].ocupied == true)
@@ -80,7 +53,7 @@ bool Character::CheckCloseTargets(Grid* battlefield)
 		}
 	}
 
-	//Verify if not at the rightmost, then if not, Verify to the Right
+	//Verify if not at the rightmost, then if not, then Verify to the Right
 
 	if (battlefield->grids[((currentBox.xIndex) * battlefield->xLenght) + currentBox.yIndex].yIndex != (battlefield->yLength - 1))
 	{
@@ -97,7 +70,7 @@ bool Character::CheckCloseTargets(Grid* battlefield)
 
 void Character::StartTurn(Grid* battlefield, bool IsPlayerTurn) 
 {
-	
+	//Verify if Player is Alive
 	if (target->target->Health <= 0)
 	{
 		IsDead = true;
@@ -114,12 +87,13 @@ void Character::StartTurn(Grid* battlefield, bool IsPlayerTurn)
 	}
 
 
-	if (CheckCloseTargets(battlefield))
+	if (CheckCloseTargets(battlefield)) //Checks if there is any Close Attack Target (Diagonals are not Considered)
 	{
 
 		Attack(&*target);
 
-		//AttackTryPushAway(&*target , battlefield);
+		//Special Feature implemented since I was born in May, this will try to push the attack target to some direction
+		AttackTryPushAway(&*target , battlefield);
 		
 		return;
 	}
@@ -254,17 +228,19 @@ void Character::Attack(Character* target)
 
 void Character::AttackTryPushAway(Character* target , Grid* battlefield)
 {
-	//TODO Make Push Random
-	
-	
-	//verify if not at the top 
+	int randomnumber = rand() % 3 + 2;
+
+	if (randomnumber % 2 == 0) //Gives a 50% Chance of Pushing the Character
+	{
+		return;
+	}
+
+	//verify if target is not at the top 
 	if (battlefield->grids[((target->currentBox.xIndex) * battlefield->xLenght) + target->currentBox.yIndex].xIndex != 0)
 	{
-		printf("\nTarget is not at the Top \n");
-		//If above zone is free Push Character Up
+		//If the zone above the target is free Push Character Up
 		if (battlefield->grids[((target->currentBox.xIndex - 1) * battlefield->xLenght) + target->currentBox.yIndex].ocupied == false)
 		{
-			printf("The zone Above the Target is Free! \n");
 			battlefield->grids[(target->currentBox.xIndex * battlefield->xLenght) + target->currentBox.yIndex].ocupied = false;
 			battlefield->grids[((target->currentBox.xIndex - 1) * battlefield->xLenght) + target->currentBox.yIndex].ocupied = true;
 
@@ -288,13 +264,18 @@ void Character::AttackTryPushAway(Character* target , Grid* battlefield)
 			}
 			printf("\nCharacter Was Pushed Up! \n");
 		}
+		else //The Zone Above the Target is not Free and the target is not at the top, so don't push it 
+		{
+			printf("Cant Push \n");
+			return;
+		}
 	}
-	//Verify if not at right most
+	//Target is at the top, so Verify if not at right most
 	else if (battlefield->grids[((target->currentBox.xIndex) * battlefield->xLenght) + target->currentBox.yIndex].yIndex != (battlefield->yLength - 1))
 	{
+		//If the zone to the right of the character is free, push the character to the right
 		if (battlefield->grids[((target->currentBox.xIndex) * battlefield->xLenght) + (target->currentBox.yIndex + 1)].ocupied == false)
 		{
-			printf("The zone to the right of the Target is Free! \n");
 			battlefield->grids[(target->currentBox.xIndex * battlefield->xLenght) + target->currentBox.yIndex].ocupied = false;
 			battlefield->grids[((target->currentBox.xIndex) * battlefield->xLenght) + (target->currentBox.yIndex + 1)].ocupied = true;
 			if (PlayerIndex == 1)
@@ -318,21 +299,18 @@ void Character::AttackTryPushAway(Character* target , Grid* battlefield)
 
 			printf("\nCharacter Was Pushed Right! \n");
 		}
+		else //The Zone to the right of the Target is not Free and the target is not at the right most, so don't push it 
+		{
+			printf("Cant Push \n");
+			return;
+		}
 	}
-	else 
+	else //Character is Corned, so don't push
 	{
 		printf("Cant Push \n");
 		return;
 	}
 
-	
-	/*
-	battlefield->grids[target->currentBox.xIndex * battlefield->xLenght + target->currentBox.yIndex].ocupied = false;
-	target->currentBox.xIndex = 0;
-	target->currentBox.yIndex = 0;
-	target->currentBox.Index = target->currentBox.xIndex * battlefield->xLenght + target->currentBox.yIndex;
-	battlefield->EnemyCurrentLocation = &battlefield->grids[target->currentBox.Index];
-	*/
 	battlefield->drawBattlefield(5, 5);
 
 }
